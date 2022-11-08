@@ -22,13 +22,13 @@ endif
 	@echo [CXX] $@
 	@ $(CXX) $(CXXFLAGS) -o $@ -c $<
 
-RECEIVE_AND_SEND_SOURCES = ReceiveAndSend.cpp
-RECEIVE_AND_SEND_OBJECTS = ReceiveAndSend.o
+RECEIVE_AND_SEND_SOURCES = ReceiveTuio.cpp SendOsc.cpp
+RECEIVE_AND_SEND_OBJECTS = ReceiveTuio.o SendOsc.o
 
 COMMON_TUIO_SOURCES = ./TUIO/TuioTime.cpp ./TUIO/TuioPoint.cpp ./TUIO/TuioContainer.cpp ./TUIO/TuioObject.cpp ./TUIO/TuioCursor.cpp ./TUIO/TuioBlob.cpp ./TUIO/TuioDispatcher.cpp ./TUIO/TuioManager.cpp  ./TUIO/OneEuroFilter.cpp
 SERVER_TUIO_SOURCES = ./TUIO/TuioServer.cpp ./TUIO/UdpSender.cpp ./TUIO/TcpSender.cpp ./TUIO/WebSockSender.cpp ./TUIO/FlashSender.cpp
 CLIENT_TUIO_SOURCES = ./TUIO/TuioClient.cpp ./TUIO/OscReceiver.cpp ./TUIO/UdpReceiver.cpp ./TUIO/TcpReceiver.cpp
-OSC_SOURCES = ./oscpack/osc/OscTypes.cpp ./oscpack/osc/OscOutboundPacketStream.cpp ./oscpack/osc/OscReceivedElements.cpp ./oscpack/osc/OscPrintReceivedElements.cpp ./oscpack/ip/posix/NetworkingUtils.cpp ./oscpack/ip/posix/UdpSocket.cpp
+OSC_SOURCES = ./oscpack/osc/OscTypes.cpp ./oscpack/osc/OscOutboundPacketStream.cpp ./oscpack/osc/OscReceivedElements.cpp ./oscpack/osc/OscPrintReceivedElements.cpp ./oscpack/ip/posix/NetworkingUtils.cpp ./oscpack/ip/posix/UdpSocket.cpp ./oscpack/ip/IpEndpointName.cpp
 
 COMMON_TUIO_OBJECTS = $(COMMON_TUIO_SOURCES:.cpp=.o)
 SERVER_TUIO_OBJECTS = $(SERVER_TUIO_SOURCES:.cpp=.o)
@@ -52,4 +52,4 @@ $(RECEIVE_AND_SEND): $(COMMON_TUIO_OBJECTS) $(CLIENT_TUIO_OBJECTS) $(OSC_OBJECTS
 clean:
 	@echo [CLEAN] $(RECEIVE_AND_SEND) $(TUIO_STATIC) $(TUIO_SHARED)
 	@ rm -f $(RECEIVE_AND_SEND) $(TUIO_STATIC) $(TUIO_SHARED)
-	@ rm -f $(COMMON_TUIO_OBJECTS) $(CLIENT_TUIO_OBJECTS) $(SERVER_TUIO_OBJECTS) $(OSC_OBJECTS) $(DUMP_OBJECTS) $(DEMO_OBJECTS) $(SIMULATOR_OBJECTS)
+	@ rm -f $(RECEIVE_AND_SEND_OBJECTS) $(COMMON_TUIO_OBJECTS) $(CLIENT_TUIO_OBJECTS) $(SERVER_TUIO_OBJECTS) $(OSC_OBJECTS)

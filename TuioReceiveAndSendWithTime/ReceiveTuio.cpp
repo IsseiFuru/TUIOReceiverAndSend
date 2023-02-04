@@ -15,10 +15,13 @@
 #include "ReceiveTuio.h"
 
 #include "SendOsc.h"
+// #include "CheckTime.h"
 
 static bool udp = true;
 static std::string receive_to_address = "192.168.1.194";
 static int receive_to_port = 40000;
+
+// struct timespec ts;
 
 void ReceiveTuio::addTuioObject(TuioObject* tobj) {}
 
@@ -30,6 +33,7 @@ void ReceiveTuio::addTuioCursor(TuioCursor* tcur) {
     // std::cout << "add cur " << tcur->getCursorID() << " ("
     //           << tcur->getSessionID() << "/" << tcur->getTuioSourceID() << ") "
     //           << tcur->getX() << " " << tcur->getY() << std::endl;
+    // TimeCheckBefore();
     oscMessage::SendOsc::SendMessageWithPosition("add", tcur->getCursorID(),
                                                  tcur->getX(), tcur->getY());
 }
@@ -40,7 +44,8 @@ void ReceiveTuio::updateTuioCursor(TuioCursor* tcur) {
     //           << tcur->getX() << " " << tcur->getY() << " "
     //           << tcur->getMotionSpeed() << " " << tcur->getMotionAccel() << " "
     //           << std::endl;
-
+    // TimeCheckBefore();
+    // std::cout << ts.tv_nsec << std::endl;
     oscMessage::SendOsc::SendMessageWithPosition("update", tcur->getCursorID(),
                                                  tcur->getX(), tcur->getY());
 }
@@ -49,6 +54,7 @@ void ReceiveTuio::removeTuioCursor(TuioCursor* tcur) {
     // std::cout << "del cur " << tcur->getCursorID() << " ("
     //           << tcur->getSessionID() << "/" << tcur->getTuioSourceID() << ") "
     //           << tcur->getX() << " " << tcur->getY() << std::endl;
+    // TimeCheckBefore();
     oscMessage::SendOsc::SendMessageWithPosition("remove", tcur->getCursorID(),
                                                  tcur->getX(), tcur->getY());
 }
@@ -60,6 +66,11 @@ void ReceiveTuio::updateTuioBlob(TuioBlob* tblb) {}
 void ReceiveTuio::removeTuioBlob(TuioBlob* tblb) {}
 
 void ReceiveTuio::refresh(TuioTime frameTime) {}
+
+// void ReceiveTuio::TimeCheckBefore() {
+//     clock_gettime(CLOCK_MONOTONIC, &ts);
+//     // std::cout << ts.tv_nsec << std::endl;
+// }
 
 static void init(int argc, char** argv) {
     char c;

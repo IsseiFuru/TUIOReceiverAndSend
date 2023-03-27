@@ -1,13 +1,13 @@
 /**
  * @file ReceiveTuio.h
- * @author Issei Furutani (fullonefine@gmail.com)
+ * @author Issei Furutani
  * @brief
  * このプログラムは外部から受け取ったTUIOのバンドルを加工して、新たなOSCのメッセージとして送信するプログラムです。
  * また、TuioCursorのみを受信するようになっています。
  * 送られるOSCのメッセージは以下の内容である。
  * /fillter/tuio add SessionID X Y
  * /fillter/tuio update SessionID X Y
- * /fillter/tuio remove SessionID
+ * /fillter/tuio remove SessionID X Y
  * @version 1.0
  * @date 2022-11-08
  */
@@ -26,8 +26,9 @@
 using namespace TUIO;
 
 /// @brief TUIOメッセージの受信クラス
-class ReceiveTuio : public TuioListener {
-   public:
+class ReceiveTuio : public TuioListener
+{
+public:
     void addTuioObject(TuioObject *tobj);
     void updateTuioObject(TuioObject *tobj);
     void removeTuioObject(TuioObject *tobj);
